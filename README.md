@@ -5,14 +5,21 @@
 
 ## Getting Started
 
-First, create node_modules
+First, create node_modules:
 
 ```bash
-yarn
+npm start
 ```
 
 Second, run the development server:
 
 ```bash
-yarn dev
+npm run dev
 ```
+
+## Stack
+
+| Stack | Version |
+| ---- | ---- |
+| Next.js / TypeScript | 14.2.3 / 5 |
+| [Chart.js](https://github.com/chartjs/Chart.js) | 4.4.3 |
