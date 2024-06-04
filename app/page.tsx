@@ -1,4 +1,4 @@
-import LineChart from "@/components/LineChart";
+import StackedBarChart from "@/components/StackedBarChart";
 
 export default function Home() {
   return (
@@ -9,7 +9,9 @@ export default function Home() {
       <div className="font-bold text-2xl">
         ようこそ、PRGへ
       </div>
-      <LineChart></LineChart>
+      <div className="p-4">
+        <StackedBarChart></StackedBarChart>
+      </div>
     </main>
   );
 }
