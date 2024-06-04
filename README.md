@@ -8,7 +8,7 @@
 First, create node_modules:
 
 ```bash
-npm start
+npm i
 ```
 
 Second, run the development server:
