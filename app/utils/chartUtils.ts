@@ -1,55 +1,46 @@
 import { ChartData } from 'chart.js';
 
-export const getRandomColor = () => {
+export const generateChartDataFromRecords = (records: { date: string, name: string, value: string }[]): ChartData<'bar'> => {
+  const labelsSet: Set<string> = new Set();
+  const datasets: { [key: string]: { label: string, data: { [year: string] :number }, backgroundColor: string, borderColor: string, borderWidth: number } } = {};
+
+  records.forEach(record => {
+    const year = new Date(record.date).getFullYear().toString();
+    const value = parseFloat(record.value);
+
+    labelsSet.add(year);
+
+    if (!datasets[record.name]) {
+      datasets[record.name] = {
+        label: record.name,
+        data: {},
+        backgroundColor: getRandomColor(),
+        borderColor: getRandomColor(),
+        borderWidth: 1,
+      };
+
+    }
+    datasets[record.name].data[year] = (datasets[record.name].data[year] || 0) + value;
+  });
+
+  const labels = Array.from(labelsSet).sort((a, b) => parseInt(a) - parseInt(b));
+
+  const datasetArray = Object.values(datasets).map(dataset => {
+    const data = labels.map(label => dataset.data[label] || 0);
+    return { ...dataset, data };
+  });
+
+  return {
+    labels,
+    datasets: datasetArray,
+  };
+};
+
+const getRandomColor = (): string => {
   const letters = '0123456789ABCDEF';
   let color = '#';
   for (let i = 0; i < 6; i++) {
     color += letters[Math.floor(Math.random() * 16)];
   }
   return color;
-};
-
-export const addRecord = (
-  data: ChartData<'bar'>,
-  date: string,
-  name: string,
-  value: string,
-  setData: React.Dispatch<React.SetStateAction<ChartData<'bar'>>>
-) => {
-  const newValue = parseFloat(value);
-  const year = new Date(date).getFullYear().toString();
-
-  if (!isNaN(newValue)) {
-    let newLabels = [...data.labels as string[]];
-    let newDatasets = [...data.datasets as ChartData<'bar'>['datasets']];
-
-    if (!newLabels.includes(year)) {
-      newLabels.push(year);
-      newLabels.sort((a, b) => parseInt(a) - parseInt(b));
-    }
-
-    let dataset = newDatasets.find(dataset => dataset.label === name);
-    if (!dataset) {
-      dataset = {
-        label: name,
-        data: Array(newLabels.length).fill(0),
-        backgroundColor: getRandomColor(),
-        borderColor: getRandomColor(),
-        borderWidth: 1,
-      };
-      newDatasets.push(dataset);
-    }
-
-    const yearIndex = newLabels.indexOf(year);
-    const currentData = dataset.data[yearIndex];
-    const updatedValue = typeof currentData === 'number' ? currentData : currentData![0];
-    dataset.data[yearIndex] = updatedValue + newValue;
-
-    newDatasets = newDatasets.map(dataset => ({
-      ...dataset,
-      data: newLabels.map((label, index) => dataset.data[newLabels.indexOf(label)] || 0),
-    }));
-
-    setData({ labels: newLabels, datasets: newDatasets });
-  }
 };

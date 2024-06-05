@@ -28,7 +28,6 @@ export const options: ChartOptions<'bar'> = {
   plugins: {
     title: {
       display: true,
-      text: 'Stacked Bar Chart',
     },
     legend: {
       position: 'top',

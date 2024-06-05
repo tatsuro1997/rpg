@@ -1,19 +1,27 @@
 "use client"
 
-import { useState } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { ChartData } from 'chart.js';
 import clsx from 'clsx';
 import StackedBarChart from "@/ui/stackedBarChart";
 import InputModal from "@/ui/experience/inputModal";
-import { addRecord } from '@/utils/chartUtils';
+import { generateChartDataFromRecords } from '@/utils/chartUtils';
 
-const initialData: ChartData<'bar'> = {
-  labels: [],
-  datasets: [],
-};
+const App: React.FC = () => {
+  const [records, setRecords] = useState<{ date: string, name: string, value: string }[]>([]);
+  const [data, setData] = useState<ChartData<'bar'>>({ labels: [], datasets: [] });
 
-const App = () => {
-  const [data, setData] = useState<ChartData<'bar'>>(initialData);
+
+  const handleAddRecord = useCallback((date: string, name: string, value: string) => {
+    setRecords((prevRecords) => [...prevRecords, { date, name, value }]);
+  }, []);
+
+  useEffect(() => {
+    const newData = generateChartDataFromRecords(records);
+    setData(newData);
+  }, [records]);
+
+  const sortedRecords = [...records].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
   return (
     <main className={clsx("min-h-screen p-24 text-center")}>
@@ -24,10 +32,21 @@ const App = () => {
         ようこそ、RPGへ
       </div>
 
-      <InputModal addRecord={(date, name, value) => addRecord(data, date, name, value, setData)} />
+      <InputModal addRecord={handleAddRecord} />
 
       <div className={clsx("p-4")}>
         <StackedBarChart data={data} />
+      </div>
+
+      <div className={clsx("p-4")}>
+        <h3>記録一覧</h3>
+        <ul>
+          {sortedRecords.map((record, index) => (
+            <li key={index}>
+              {new Date(record.date).getFullYear()} - {record.name}: {record.value}
+            </li>
+          ))}
+        </ul>
       </div>
     </main>
   );
