@@ -1,10 +1,10 @@
-import { GlobeAltIcon } from '@heroicons/react/24/outline';
+import { UserCircleIcon } from '@heroicons/react/24/outline';
 import { lusitana } from '@/ui/fonts';
 
 export default function AppLogo() {
   return (
-    <div className={`${lusitana.className} flex flex-row items-center leading-none text-white`}>
-      <GlobeAltIcon className="h-12 w-12 rotate-[15deg]" />
+    <div className={`${lusitana.className} flex flex-row items-center leading-none text-white gap-5`}>
+      <UserCircleIcon className="h-8 w-8" />
       <p className="text-[30px]">RPG</p>
     </div>
   );
