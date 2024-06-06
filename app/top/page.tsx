@@ -1,9 +1,7 @@
 "use client"
 
 import { useState, useEffect, useCallback } from 'react'
-import Link from 'next/link';
 import { ChartData } from 'chart.js';
-import { Button } from '@mui/material';
 import clsx from 'clsx';
 import StackedBarChart from "@/ui/stackedBarChart";
 import InputModal from "@/ui/experience/inputModal";
@@ -28,17 +26,10 @@ const App: React.FC = () => {
   return (
     <main className={clsx("min-h-screen p-24 text-center")}>
       <div className={clsx("font-black text-6xl")}>
-        WELCOME TO RPG
+        WELCOME TO RPG[TOP]
       </div>
       <div className={clsx("font-bold text-2xl")}>
         ようこそ、RPGへ
-      </div>
-
-      <div className={clsx("my-6")}>
-        <p className={clsx("mb-4")}>さぁ！新しい自分の始まりを体験しましょう。</p>
-        <Link href="/signup">
-          <Button variant="outlined">Sign up</Button>
-        </Link>
       </div>
 
       <InputModal addRecord={handleAddRecord} />

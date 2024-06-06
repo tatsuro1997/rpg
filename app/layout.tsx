@@ -5,7 +5,10 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "RPG",
+  title: {
+    template: "%s | RPG",
+    default: "RPG"
+  },
   description: "自分の人生の経験値を可視化してみよう！： Visualize your life experiences!",
 };
 
