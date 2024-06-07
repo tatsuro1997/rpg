@@ -14,10 +14,10 @@ import { Button } from '@mui/material';
 import { createAccount } from '@/lib/actions';
 import { lusitana } from '@/ui/fonts';
 
-export default function SignInForm() {
+export default function LogInForm() {
   const [code, action] = useFormState(createAccount, undefined);
 
-  const SignInButton = () => {
+  const LogInButton = () => {
     const { pending } = useFormStatus();
 
     return (
@@ -97,7 +97,7 @@ export default function SignInForm() {
               <FaBirthdayCake className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
             </div>
           </div>
-          <SignInButton />
+          <LogInButton />
           {code && (
             <div className="flex h-8 items-end space-x-1">
               <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
@@ -110,7 +110,7 @@ export default function SignInForm() {
           <br />
           <div className="mt-10 flex items-baseline gap-4">
             <p className='text-xs text-gray-500'>
-              *すでにアカウントをお持ちの場合<Link href="/signin" className='text-blue-600 hover:underline'>ログイン</Link>
+              *すでにアカウントをお持ちの場合<Link href="/Login" className='text-blue-600 hover:underline'>ログイン</Link>
             </p>
           </div>
         </div>

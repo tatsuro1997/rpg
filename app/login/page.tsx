@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import SignInForm from '@/ui/signin/SignInForm';
+import LogInForm from '@/ui/login/LogInForm';
 import AppLogo from '@/ui/AppLogo';
 import Link from 'next/link';
 
@@ -19,7 +19,7 @@ export default function Page() {
             <AppLogo />
           </div>
         </Link>
-        <SignInForm />
+        <LogInForm />
       </div>
     </main>
   );

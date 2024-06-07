@@ -39,8 +39,8 @@ export async function authenticate(prevState: string | undefined, formData: Form
   try {
     await signIn('credentials', Object.fromEntries(formData));
   } catch (error) {
-    if ((error as Error).message.includes('CredentialsSignin')) {
-      return 'CredentialSignin';
+    if ((error as Error).message.includes('CredentialsLogin')) {
+      return 'CredentialLogin';
     }
     throw error;
   }
@@ -56,7 +56,7 @@ export async function createAccount(prevState: string | undefined, formData: For
 
   if (!validatedFields.success) {
     console.error(validatedFields.error);
-    return 'FailedSignUp: Validation Failed';
+    return 'FailedRegister: Validation Failed';
   }
 
   const id = uuidv4();
@@ -68,7 +68,7 @@ export async function createAccount(prevState: string | undefined, formData: For
       VALUES (${id}, ${name}, ${email}, ${hashedPassword}, ${birthday})`;
   } catch (error) {
     console.error(error);
-    return 'FailedSignUp: Insert Failed';
+    return 'FailedRegister: Insert Failed';
   }
 
   redirect('/top');

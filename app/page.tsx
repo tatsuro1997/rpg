@@ -35,9 +35,9 @@ const App: React.FC = () => {
       </div>
 
       <div className={clsx("my-6")}>
-        <p className={clsx("mb-4")}>さぁ！新しい自分の始まりを体験しましょう。</p>
-        <Link href="/signup">
-          <Button variant="outlined">Sign up</Button>
+        <p className={clsx("mb-4")}>さぁ、アカウント登録をして新しい自分の始まりを体験しましょう。</p>
+        <Link href="/register">
+          <Button variant="outlined">アカウント登録</Button>
         </Link>
       </div>
 

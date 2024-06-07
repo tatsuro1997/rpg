@@ -12,10 +12,10 @@ import { Button } from '@mui/material';
 import { lusitana } from '@/ui/fonts';
 import { authenticate } from '@/lib/actions';
 
-export default function SignInForm() {
+export default function LogInForm() {
   const [code, action] = useFormState(authenticate, undefined);
 
-  const SignInButton = () => {
+  const LogInButton = () => {
     const { pending } = useFormStatus();
 
     return (
@@ -29,7 +29,7 @@ export default function SignInForm() {
     <form action={action} className="space-y-3">
       <div className="flex-1 rounded-lg bg-gray-50 px-10 pb-4 pt-8 text-sm text-gray-800">
         <h1 className={`${lusitana.className} mb-5 text-1xl`}>
-          以下のフォームからサインインしてください。
+          以下のフォームからログインしてください。
         </h1>
         <div className="w-full">
           <label className="mb-3 mt-5 block text-xs font-medium text-gray-900" htmlFor="email">
@@ -63,7 +63,7 @@ export default function SignInForm() {
             />
             <KeyIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
           </div>
-          <SignInButton />
+          <LogInButton />
           {code && (
             <div className="flex h-8 items-end space-x-1">
               <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
@@ -76,7 +76,7 @@ export default function SignInForm() {
           <br />
           <div className="text-gray-500 text-xs mt-10">
             アカウントを作成する場合は
-            <Link href="/signup" className='text-blue-600 hover:underline'>こちら</Link>
+            <Link href="/register" className='text-blue-600 hover:underline'>こちら</Link>
           </div>
         </div>
       </div>

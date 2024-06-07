@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Metadata } from 'next';
-import SignUpForm from '@/ui/signup/SignUpForm';
+import RegisterForm from '@/ui/register/RegisterForm';
 import AppLogo from '@/ui/AppLogo';
 
 export const metadata: Metadata = {
@@ -19,7 +19,7 @@ export default function Page() {
             <AppLogo />
           </div>
         </Link>
-        <SignUpForm />
+        <RegisterForm />
       </div>
     </main>
   );
