@@ -21,7 +21,7 @@ export default function SignInForm() {
     const { pending } = useFormStatus();
 
     return (
-      <Button className="mt-4 w-[150px]" aria-disabled={pending}>
+      <Button type="submit" className="mt-4 w-[150px]" aria-disabled={pending}>
         アカウント登録 <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-500" />
       </Button>
     );
@@ -98,11 +98,12 @@ export default function SignInForm() {
             </div>
           </div>
           <SignInButton />
-          {code === 'FailedSignIn' && (
+          {code && (
             <div className="flex h-8 items-end space-x-1">
               <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
               <p aria-live="polite" className="text-sm text-red-500">
                 アカウント登録に失敗しました。
+                {code}
               </p>
             </div>
           )}

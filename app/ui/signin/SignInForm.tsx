@@ -19,7 +19,7 @@ export default function SignInForm() {
     const { pending } = useFormStatus();
 
     return (
-      <Button className="mt-4 w-[130px]" aria-disabled={pending}>
+      <Button type="submit" className="mt-4 w-[130px]" aria-disabled={pending}>
         ログイン <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-500" />
       </Button>
     );
@@ -64,11 +64,12 @@ export default function SignInForm() {
             <KeyIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
           </div>
           <SignInButton />
-          {code === 'CredentialSignin' && (
+          {code && (
             <div className="flex h-8 items-end space-x-1">
               <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
               <p aria-live="polite" className="text-sm text-red-500">
                 Emailかパスワードが不正です。
+                {code}
               </p>
             </div>
           )}
