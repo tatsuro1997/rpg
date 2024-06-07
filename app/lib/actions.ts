@@ -1,11 +1,11 @@
 'use server';
 
-import { auth, signIn, signOut } from '../../auth';
 import { redirect } from 'next/navigation';
 import { sql } from '@vercel/postgres';
 import bcrypt from 'bcrypt';
 import { v4 as uuidv4 } from 'uuid';
 import { z } from 'zod';
+import { auth, signIn, signOut } from '../../auth';
 import { UserSession } from '@/types/UserSession';
 
 const CreateUser = z.object({
@@ -72,4 +72,9 @@ export async function createAccount(prevState: string | undefined, formData: For
   }
 
   redirect('/top');
+}
+
+export async function logout() {
+  await signOut();
+  redirect('/');
 }
