@@ -11,10 +11,16 @@ First, create node_modules:
 npm i
 ```
 
-Second, run the development server:
+Second, set up db and seed:
 
 ```bash
-npm run dev
+make seed
+```
+
+Third, run the development server:
+
+```bash
+make up
 ```
 
 ## Stack
