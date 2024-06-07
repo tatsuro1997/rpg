@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { ChartData } from 'chart.js';
 import clsx from 'clsx';
-import StackedBarChart from "@/ui/stackedBarChart";
+import StackedBarChart from "@/ui/top/chart/stackedBarChart";
 import InputModal from "@/ui/experience/inputModal";
 import { generateChartDataFromRecords } from '@/utils/chartUtils';
 

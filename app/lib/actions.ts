@@ -71,6 +71,21 @@ export async function createAccount(prevState: string | undefined, formData: For
     return 'FailedRegister: Insert Failed';
   }
 
+  try {
+    const result = await signIn('credentials', {
+      redirect: false,
+      email: email,
+      password: password
+    });
+    if (result.error) {
+      console.error('Error logging in:', result.error);
+      return 'CredentialLogin';
+    }
+  } catch (error) {
+    console.error('Error during signIn:', error);
+    return 'CredentialLogin';
+  }
+
   redirect('/top');
 }
 
