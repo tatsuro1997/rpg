@@ -19,15 +19,16 @@ export const getSession = async (): Promise<UserSession> => {
   const session = await auth();
   let userSession: UserSession = {
     expired: '',
+    userId: '',
     userName: '',
     email: '',
   };
 
   if (session && session.user) {
     userSession.expired = session.expires;
+    if (session.user.id) userSession.userId = session.user.id;
     if (session.user.name) userSession.userName = session.user.name;
     if (session.user.email) userSession.email = session.user.email;
-
     return userSession;
   } else {
     await signOut();

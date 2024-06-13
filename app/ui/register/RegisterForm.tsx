@@ -11,7 +11,7 @@ import {
   UserIcon,
 } from '@heroicons/react/24/outline';
 import { Button } from '@mui/material';
-import { createAccount } from '@/lib/actions';
+import { createAccount } from '@/lib/auth';
 import { lusitana } from '@/ui/fonts';
 
 export default function LogInForm() {

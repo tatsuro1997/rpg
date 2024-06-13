@@ -10,7 +10,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { Button } from '@mui/material';
 import { lusitana } from '@/ui/fonts';
-import { authenticate } from '@/lib/actions';
+import { authenticate } from '@/lib/auth';
 
 export default function LogInForm() {
   const [code, action] = useFormState(authenticate, undefined);
