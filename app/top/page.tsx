@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from 'react'
 import { ChartData } from 'chart.js';
 import clsx from 'clsx';
 import StackedBarChart from "@/ui/top/chart/stackedBarChart";
-import InputModal from "@/ui/experience/inputModal";
+import InputModal from "@/ui/top/experience/inputModal";
 import { generateChartDataFromRecords } from '@/utils/chartUtils';
 
 const App: React.FC = () => {

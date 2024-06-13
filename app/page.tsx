@@ -6,7 +6,7 @@ import { ChartData } from 'chart.js';
 import { Button } from '@mui/material';
 import clsx from 'clsx';
 import StackedBarChart from "@/ui/top/chart/stackedBarChart";
-import InputModal from "@/ui/experience/inputModal";
+import InputModal from "@/ui/experience/inputModalSample";
 import { generateChartDataFromRecords } from '@/utils/chartUtils';
 
 const App: React.FC = () => {

@@ -110,7 +110,7 @@ export default function LogInForm() {
           <br />
           <div className="mt-10 flex items-baseline gap-4">
             <p className='text-xs text-gray-500'>
-              *すでにアカウントをお持ちの場合<Link href="/Login" className='text-blue-600 hover:underline'>ログイン</Link>
+              *すでにアカウントをお持ちの場合<Link href="/login" className='text-blue-600 hover:underline'>ログイン</Link>
             </p>
           </div>
         </div>
