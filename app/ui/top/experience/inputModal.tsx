@@ -1,10 +1,10 @@
 "use client"
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField } from '@mui/material';
 import clsx from 'clsx';
 import { postExperience } from '../../../lib/experience';
-import { getSession } from '../../../lib/auth';
+import { useSession } from 'next-auth/react';
 interface InputModalProps {
   addRecord: (userId: string, date: string, title: string, point: number) => void;
 }
@@ -12,24 +12,8 @@ interface InputModalProps {
 const InputModal: React.FC<InputModalProps> = ({ addRecord }) => {
   const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState({ date: '', title: '', point: 0 });
-  const [userId, setUserId] = useState<string>();
+  const { data: session }  = useSession();
 
-  useEffect(() => {
-    fetchSessionData();
-  }, [])
-
-  const fetchSessionData = async () => {
-    try {
-      const session = await getSession();
-      if (session['userId']) {
-        setUserId(session['userId']);
-      } else {
-        console.log('No active session found');
-      }
-    } catch (error) {
-      console.error('Failed to fetch session:', error);
-    }
-  };
 
   const handleClickOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -41,12 +25,12 @@ const InputModal: React.FC<InputModalProps> = ({ addRecord }) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!userId) {
-      console.error('User ID is undefined');
+    if (!session || !session.user) {
+      console.error('User IDuserId === userId) {  efined');
       return;
     }
     try {
-      await postExperience({ userId: userId, ...formData, point: Number(formData.point) });
+      await postExperience({ userId: session.user.id as string, ...formData, point: Number(formData.point) });
       handleClose();
     } catch (error) {
       console.error('Error adding experience record:', error);

@@ -10,10 +10,9 @@ import {
 } from '@heroicons/react/24/outline';
 import { Button } from '@mui/material';
 import { lusitana } from '../fonts';
-import { authenticate } from '../../lib/auth';
 
 export default function LogInForm() {
-  const [code, action] = useFormState(authenticate, undefined);
+  // const [code, action] = useFormState(authenticate, undefined);
 
   const LogInButton = () => {
     const { pending } = useFormStatus();
@@ -26,7 +25,7 @@ export default function LogInForm() {
   }
 
   return (
-    <form action={action} className="space-y-3">
+    <form className="space-y-3">
       <div className="flex-1 rounded-lg bg-gray-50 px-10 pb-4 pt-8 text-sm text-gray-800">
         <h1 className={`${lusitana.className} mb-5 text-1xl`}>
           以下のフォームからログインしてください。
@@ -64,7 +63,7 @@ export default function LogInForm() {
             <KeyIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
           </div>
           <LogInButton />
-          {code && (
+          {/* {code && (
             <div className="flex h-8 items-end space-x-1">
               <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
               <p aria-live="polite" className="text-sm text-red-500">
@@ -72,7 +71,7 @@ export default function LogInForm() {
                 {code}
               </p>
             </div>
-          )}
+          )} */}
           <br />
           <div className="text-gray-500 text-xs mt-10">
             アカウントを作成する場合は

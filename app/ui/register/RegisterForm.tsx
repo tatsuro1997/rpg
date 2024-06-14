@@ -1,8 +1,8 @@
 'use client';
 
 import Link from 'next/link';
+import { useState } from 'react';
 import { FaBirthdayCake } from 'react-icons/fa';
-import { useFormState, useFormStatus } from 'react-dom';
 import {
   ArrowRightIcon,
   AtSymbolIcon,
@@ -15,20 +15,28 @@ import { createAccount } from '@/lib/auth';
 import { lusitana } from '@/ui/fonts';
 
 export default function LogInForm() {
-  const [code, action] = useFormState(createAccount, undefined);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
-  const LogInButton = () => {
-    const { pending } = useFormStatus();
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
 
-    return (
-      <Button type="submit" className="mt-4 w-[150px]" aria-disabled={pending}>
-        アカウント登録 <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-500" />
-      </Button>
-    );
-  }
+    try {
+      await createAccount(email, password);
+      // Redirect to login page or show success message
+    } catch (err) {
+      setError('アカウント登録に失敗しました。');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <form action={action} className="space-y-3">
+    <form onSubmit={handleSubmit} className="space-y-3">
       <div className="flex-1 rounded-lg bg-gray-50 px-10 pb-4 pt-8 text-sm text-gray-800">
         <h1 className={`${lusitana.className} mb-5 text-1xl`}>
           以下のフォームからアカウント登録してください。
@@ -61,6 +69,8 @@ export default function LogInForm() {
               name="email"
               placeholder="xxx@example.com"
               required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <AtSymbolIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
           </div>
@@ -73,11 +83,13 @@ export default function LogInForm() {
             <input
               className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
               id="password"
-              type="current-password"
+              type="password"
               name="password"
               placeholder="パスワード"
               required
               minLength={8}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
             <KeyIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
           </div>
@@ -97,13 +109,14 @@ export default function LogInForm() {
               <FaBirthdayCake className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
             </div>
           </div>
-          <LogInButton />
-          {code && (
+          <Button type="submit" className="mt-4 w-[150px]" disabled={loading}>
+            アカウント登録 <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-500" />
+          </Button>
+          {error && (
             <div className="flex h-8 items-end space-x-1">
               <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
               <p aria-live="polite" className="text-sm text-red-500">
-                アカウント登録に失敗しました。
-                {code}
+                {error}
               </p>
             </div>
           )}
