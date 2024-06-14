@@ -1,8 +1,11 @@
 build:
-	npm run build
+	docker compose build
 
 up:
-	npm run dev
+	docker compose up
+
+bash:
+	docker container exec -it rpg-app-1 sh
 
 lint:
 	npm run lint
