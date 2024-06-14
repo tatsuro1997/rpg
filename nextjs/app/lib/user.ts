@@ -2,11 +2,11 @@
 
 import { unstable_noStore as noStore } from 'next/cache';
 import { sql } from '@vercel/postgres';
-import { User } from '@/types/User';
+import { User } from '../types/User';
 
 export const getUser = async (email: string): Promise<User> => {
   console.log("getUser", email);
-  
+
   noStore();
   try {
     const user = await sql<User>`SELECT *

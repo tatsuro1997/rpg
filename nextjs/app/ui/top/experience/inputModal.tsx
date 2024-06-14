@@ -3,8 +3,8 @@
 import { useState, useEffect } from 'react'
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField } from '@mui/material';
 import clsx from 'clsx';
-import { postExperience } from '@/lib/experience';
-import { getSession } from '@/lib/auth';
+import { postExperience } from '../../../lib/experience';
+import { getSession } from '../../../lib/auth';
 interface InputModalProps {
   addRecord: (userId: string, date: string, title: string, point: number) => void;
 }

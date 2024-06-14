@@ -1,8 +1,8 @@
 build:
-	npm run build
+	docker compose build
 
 up:
-	npm run dev
+	docker compose up
 
 lint:
 	npm run lint

@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
-import LogInForm from '@/ui/login/LogInForm';
-import AppLogo from '@/ui/AppLogo';
+import LogInForm from '../ui/login/LogInForm';
+import AppLogo from '../ui/AppLogo';
 import Link from 'next/link';
 
 export const metadata: Metadata = {

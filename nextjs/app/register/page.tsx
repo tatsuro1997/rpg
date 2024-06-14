@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Metadata } from 'next';
-import RegisterForm from '@/ui/register/RegisterForm';
-import AppLogo from '@/ui/AppLogo';
+import RegisterForm from '../ui/register/RegisterForm';
+import AppLogo from '../ui/AppLogo';
 
 export const metadata: Metadata = {
   title: 'サインアップ',

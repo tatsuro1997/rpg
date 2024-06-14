@@ -3,7 +3,7 @@ import Credentials from 'next-auth/providers/credentials';
 import { z } from 'zod';
 import bcrypt from 'bcrypt';
 import { authConfig } from './auth.config';
-import { getUser } from '@/lib/user';
+import { getUser } from './app/lib/user';
 
 export const { auth, signIn, signOut } = NextAuth({
   ...authConfig,
@@ -32,7 +32,7 @@ export const { auth, signIn, signOut } = NextAuth({
   ],
   callbacks: {
     async session({ session, token }) {
-      session.user.id = token.userId as string;
+      session.user.id = token.sub as string;
       return session;
     }
   }

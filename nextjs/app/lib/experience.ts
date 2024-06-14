@@ -3,7 +3,7 @@
 import { unstable_noStore as noStore } from 'next/cache';
 import { sql } from '@vercel/postgres';
 import { z } from 'zod';
-import { Experience } from '@/types/Experience';
+import { Experience } from '../types/Experience';
 
 const ExperienceSchema = z.object({
   userId: z.string().uuid(),

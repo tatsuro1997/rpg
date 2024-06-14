@@ -1,0 +1,27 @@
+services:
+  db:
+    image: postgres:latest
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+
+  app:
+    build:
+      context: nextjs
+    container_name: rpg
+    ports:
+      - "3000:3000"
+    tty: true
+    volumes:
+      - ./nextjs/app:/nextjs/app
+    working_dir: /nextjs/app
+    command: npm run dev
+    depends_on:
+      - db
+
+volumes:
+  db-data:
