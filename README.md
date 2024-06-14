@@ -11,16 +11,34 @@ First, create node_modules:
 npm i
 ```
 
-Second, set up db and seed:
+Second, set up server:
 
 ```bash
-make seed
+make up
 ```
 
 Third, run the development server:
 
 ```bash
-make up
+make bash
+```
+
+use next server:
+
+```bash
+npm run dev
+```
+
+prisma setup:
+
+```bash
+npx prisma migrate dev --name init
+```
+
+check prisma studio:
+
+```bash
+npx prisma studio
 ```
 
 ## Stack
