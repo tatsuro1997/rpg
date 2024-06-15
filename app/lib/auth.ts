@@ -1,8 +1,8 @@
 'use server';
 
 import { redirect } from 'next/navigation';
-import { sql } from '@vercel/postgres';
-import bcrypt from 'bcrypt';
+import prisma from '@/lib/prisma';
+import bcrypt from 'bcryptjs';
 import { v4 as uuidv4 } from 'uuid';
 import { z } from 'zod';
 import { auth, signIn, signOut } from '../../auth';
@@ -60,15 +60,20 @@ export async function createAccount(prevState: string | undefined, formData: For
     return 'FailedRegister: Validation Failed';
   }
 
-  const id = uuidv4();
   const { name, email, password, birthday } = validatedFields.data;
   const hashedPassword = await bcrypt.hash(password, 10);
+
   try {
-    await sql`
-      INSERT INTO wm_users (id, name, email, password, birthday)
-      VALUES (${id}, ${name}, ${email}, ${hashedPassword}, ${birthday})`;
+    await prisma.user.create({
+      data: {
+        name,
+        email,
+        password: hashedPassword,
+        birthday: new Date(birthday),
+      },
+    });
   } catch (error) {
-    console.error(error);
+    console.error('Error inserting user:', error);
     return 'FailedRegister: Insert Failed';
   }
 

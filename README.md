@@ -41,6 +41,8 @@ check prisma studio:
 npx prisma studio
 ```
 
+visit: [http://localhost:5555](http://localhost:555)
+
 ## Stack
 
 | Stack | Version |

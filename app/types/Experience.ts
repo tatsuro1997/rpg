@@ -1,5 +1,5 @@
 export type Experience = {
-  id: string;
+  id: number;
   user_id: string;
   date: Date;
   title: string;

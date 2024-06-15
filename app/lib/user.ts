@@ -1,19 +1,23 @@
 'use server';
 
 import { unstable_noStore as noStore } from 'next/cache';
-import { sql } from '@vercel/postgres';
+import prisma from '@/lib/prisma';
 import { User } from '@/types/User';
 
 export const getUser = async (email: string): Promise<User> => {
-  console.log("getUser", email);
-  
   noStore();
   try {
-    const user = await sql<User>`SELECT *
-      FROM wm_users
-      WHERE email=${email}`;
-    return user.rows[0];
+    const user = await prisma.user.findUnique({
+      where: { email },
+    });
+
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    return user;
   } catch (error) {
-    throw new Error('Database Error: Failed to get user for calender.');
+    console.error('Database Error: Failed to get user for calendar.', error);
+    throw new Error('Database Error: Failed to get user for calendar.');
   }
 };
