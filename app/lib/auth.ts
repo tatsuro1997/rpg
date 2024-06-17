@@ -3,7 +3,6 @@
 import { redirect } from 'next/navigation';
 import prisma from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
-import { v4 as uuidv4 } from 'uuid';
 import { z } from 'zod';
 import { auth, signIn, signOut } from '../../auth';
 import { UserSession } from '@/types/UserSession';
@@ -93,9 +92,4 @@ export async function createAccount(prevState: string | undefined, formData: For
   }
 
   redirect('/top');
-}
-
-export async function logout() {
-  await signOut();
-  redirect('/');
 }
