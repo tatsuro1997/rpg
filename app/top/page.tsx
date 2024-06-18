@@ -3,8 +3,8 @@
 import { useState, useEffect, useCallback } from 'react'
 import { ChartData } from 'chart.js';
 import clsx from 'clsx';
-import StackedBarChart from "@/ui/top/chart/stackedBarChart";
-import InputModal from "@/ui/top/experience/inputModal";
+import StackedBarChart from "@/components/ui/top/chart/stackedBarChart";
+// import InputModal from "@/components/ui/top/experience/inputModal";
 import { generateChartDataFromRecords } from '@/utils/chartUtils';
 
 const App: React.FC = () => {
@@ -32,7 +32,7 @@ const App: React.FC = () => {
         ようこそ、RPGへ
       </div>
 
-      <InputModal addRecord={handleAddRecord} />
+      {/* <InputModal addRecord={handleAddRecord} /> */}
 
       <div className={clsx("p-4")}>
         <StackedBarChart data={data} />

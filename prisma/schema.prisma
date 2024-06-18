@@ -6,12 +6,12 @@
 
 generator client {
   provider = "prisma-client-js"
-  binaryTargets = ["native"]
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x", "darwin"]
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
 }
 
 model Session {
@@ -27,8 +27,7 @@ model User {
   id         Int      @id @default(autoincrement())
   email      String   @unique
   password   String
-  name       String
-  birthday   DateTime
+  nickname       String
   sessions   Session[]
   experience Experience[]
 }

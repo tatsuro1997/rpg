@@ -15,9 +15,8 @@ async function resetDB() {
     await sql`
       CREATE TABLE IF NOT EXISTS wm_users (
         id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-        name VARCHAR(255) NOT NULL,
+        nickname VARCHAR(255) NOT NULL,
         email TEXT NOT NULL UNIQUE,
-        birthday DATE NULL,
         password TEXT NOT NULL
       );
     `;

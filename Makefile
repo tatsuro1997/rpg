@@ -2,7 +2,10 @@ build:
 	docker compose build
 
 up:
-	docker compose up
+	docker compose up -d
+
+down:
+	docker compose down
 
 bash:
 	docker container exec -it rpg-app-1 sh

@@ -49,3 +49,5 @@ visit: [http://localhost:5555](http://localhost:555)
 | ---- | ---- |
 | Next.js / TypeScript | 14.2.3 / 5 |
 | [Chart.js](https://github.com/chartjs/Chart.js) | 4.4.3 |
+
+npx prisma-accelerate-local -s secret -u postgresql://postgres:password@localhost:5432/postgres -p 8000
