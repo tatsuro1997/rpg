@@ -1,10 +1,10 @@
-import { RegisterForm } from '../_components/register-form';
-import Link from 'next/link';
 import { Metadata } from 'next';
+import Link from 'next/link';
 import AppLogo from '@/components/ui/AppLogo';
+import { RegisterForm } from '../_components/register-form';
 
 export const metadata: Metadata = {
-  title: 'サインアップ',
+  title: '新規登録',
 };
 
 export default function RegisterPage() {

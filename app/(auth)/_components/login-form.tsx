@@ -1,10 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { useState, useTransition } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { toast } from 'sonner';
 import * as z from 'zod';
 import { Button } from '@/components/ui/button';
 import {
@@ -17,27 +15,28 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { FormError } from '@/components/form-error';
-import { registerSchema } from '@/schemas';
-import { register } from '@/actions/register';
+import { useState, useTransition } from 'react';
+import { toast } from 'sonner';
+import { logInSchema } from '@/schemas/index';
+import { signIn } from '@/actions/login';
 
-export function RegisterForm() {
+export function LogInForm() {
   const [error, setError] = useState<string | undefined>('');
   const [isPending, startTransition] = useTransition();
 
-  const form = useForm<z.infer<typeof registerSchema>>({
-    resolver: zodResolver(registerSchema),
+  const form = useForm<z.infer<typeof logInSchema>>({
+    resolver: zodResolver(logInSchema),
     defaultValues: {
-      nickname: '',
       email: '',
       password: '',
     },
   });
 
-  const onSubmit = (values: z.infer<typeof registerSchema>) => {
+  const onSubmit = (values: z.infer<typeof logInSchema>) => {
     setError('');
 
     startTransition(async () => {
-      const result = await register(values);
+      const result = await signIn(values);
 
       if (!result.isSuccess) {
         setError(result.error.message);
@@ -51,19 +50,6 @@ export function RegisterForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
-        <FormField
-          control={form.control}
-          name='nickname'
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>ニックネーム</FormLabel>
-              <FormControl>
-                <Input placeholder='nickname' {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
         <FormField
           control={form.control}
           name='email'
@@ -93,13 +79,12 @@ export function RegisterForm() {
         <FormError message={error} />
         <div className='flex justify-between items-center'>
           <Button type='submit' disabled={isPending}>
-            アカウントを作成
-          </Button>
-          <Link href="/login" className='text-blue-600 text-xs underline'>
             ログイン
+          </Button>
+          <Link href="/register" className='text-blue-600 text-xs underline'>
+            アカウント登録
           </Link>
         </div>
-
       </form>
     </Form>
   );
