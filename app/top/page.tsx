@@ -3,14 +3,13 @@
 import { useState, useEffect, useCallback } from 'react'
 import { ChartData } from 'chart.js';
 import clsx from 'clsx';
-import StackedBarChart from "@/components/ui/top/chart/stackedBarChart";
-// import InputModal from "@/components/ui/top/experience/inputModal";
+import StackedBarChart from "@/components/top/chart/stackedBarChart";
+import InputModal from "@/components/top/experience/inputModal";
 import { generateChartDataFromRecords } from '@/utils/chartUtils';
 
 const App: React.FC = () => {
   const [records, setRecords] = useState<{ date: string, name: string, value: string }[]>([]);
   const [data, setData] = useState<ChartData<'bar'>>({ labels: [], datasets: [] });
-
 
   const handleAddRecord = useCallback((date: string, name: string, value: string) => {
     setRecords((prevRecords) => [...prevRecords, { date, name, value }]);
@@ -32,7 +31,7 @@ const App: React.FC = () => {
         ようこそ、RPGへ
       </div>
 
-      {/* <InputModal addRecord={handleAddRecord} /> */}
+      <InputModal addRecord={handleAddRecord} />
 
       <div className={clsx("p-4")}>
         <StackedBarChart data={data} />

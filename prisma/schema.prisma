@@ -15,7 +15,7 @@ datasource db {
 }
 
 model Session {
-  id           String   @id @default(cuid())
+  id           Int   @id @default(autoincrement())
   sessionToken String   @unique
   userId       Int
   expires      DateTime

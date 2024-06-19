@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { PropsWithChildren } from 'react';
 import { Toaster } from '@/components/ui/sonner';
+import { SessionProvider } from 'next-auth/react';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -13,11 +14,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
-    <html lang='ja'>
-      <body className={inter.className}>
-        <Toaster />
-        {children}
-      </body>
-    </html>
+    <SessionProvider>
+      <html lang='ja'>
+        <body className={inter.className}>
+          <Toaster />
+          {children}
+        </body>
+      </html>
+    </SessionProvider>
   );
 }

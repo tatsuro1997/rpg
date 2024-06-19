@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { PowerIcon } from '@heroicons/react/24/outline';
-import AppLogo from '../AppLogo';
+import AppLogo from '../ui/AppLogo';
 import { signOut } from 'next-auth/react';
 
 export default function Navigation() {

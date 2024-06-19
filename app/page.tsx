@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { ChartData } from 'chart.js';
 import { Button } from '@mui/material';
 import clsx from 'clsx';
-import StackedBarChart from "../components/ui/top/chart/stackedBarChart";
+import StackedBarChart from "../components/top/chart/stackedBarChart";
 import InputModal from "../components/ui/experience/inputModalSample";
 import { generateChartDataFromRecords } from '../utils/chartUtils';
 
