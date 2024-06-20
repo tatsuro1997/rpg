@@ -32,6 +32,7 @@ export default {
       },
     }),
   ],
+  secret: process.env.AUTH_SECRET,
   callbacks: {
     async session({ session, token }) {
       session.user.id = token.sub ?? '';
