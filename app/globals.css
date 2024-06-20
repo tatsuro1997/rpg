@@ -80,3 +80,59 @@ body,
     @apply bg-background text-foreground;
   }
 }
+
+@keyframes floatUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes typewriter {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent; }
+  50% { border-color: orange; }
+}
+
+.floating-text {
+  opacity: 0;
+  animation: floatUp 1s forwards;
+}
+
+.typewriter-text {
+  overflow: hidden; /* Ensures the text is hidden until animated */
+  border-right: 0.15em solid orange; /* Adds a cursor effect */
+  white-space: nowrap;
+  animation: typewriter 4s steps(40, end) forwards, blink-caret 0.75s step-end infinite;
+
+  @apply mx-auto;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.visible {
+  visibility: visible;
+}
+
+.floating-text {
+  opacity: 0;
+  transition: opacity 2s;
+}
+
+.floating-text.visible {
+  opacity: 1;
+}
+
+.sm {
+  @apply md:hidden;
+}

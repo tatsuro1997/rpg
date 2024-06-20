@@ -7,7 +7,7 @@ import { signOut } from 'next-auth/react';
 
 export default function Navigation() {
   return (
-    <nav className="flex justify-between items-center p-2 bg-gray-800 text-white">
+    <nav className="flex justify-between items-center p-2 bg-white-800 text-white">
       <div className="flex items-center">
         <Link href="/">
           <AppLogo />

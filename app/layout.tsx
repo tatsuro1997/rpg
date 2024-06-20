@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <SessionProvider>
-      <html lang='ja'>
+      <html lang='ja' className='dark'>
         <body className={inter.className}>
           <Toaster />
           {children}

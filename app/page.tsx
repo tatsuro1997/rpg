@@ -1,14 +1,13 @@
 "use client"
 
 import { useState, useEffect, useCallback } from 'react'
-import Link from 'next/link';
 import { ChartData } from 'chart.js';
-import { Button } from '@mui/material';
 import clsx from 'clsx';
 import StackedBarChart from "../components/top/chart/stackedBarChart";
 import InputModal from "../components/ui/experience/inputModalSample";
 import { generateChartDataFromExperiences } from '../utils/chartUtils';
 import { BaseExperience } from '@/types/Experience'
+import MainView from '@/components/MainView';
 
 const App: React.FC = () => {
   const [experiences, setExperiences] = useState<BaseExperience[]>([]);
@@ -27,37 +26,35 @@ const App: React.FC = () => {
   const sortedRecords = [...experiences].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
   return (
-    <main className={clsx("min-h-screen p-24 text-center")}>
-      <div className={clsx("font-black text-6xl")}>
-        WELCOME TO RPG
-      </div>
-      <div className={clsx("font-bold text-2xl")}>
-        ようこそ、RPGへ
+    <main className={clsx("min-h-screen md:p-24 py-10 px-2 text-center")}>
+      <MainView />
+
+      <div className={clsx("mt-20")}>
+        <InputModal addRecord={handleAddRecord} />
+        <div className={clsx("mt-2")}>
+          <p className={clsx("text-sm")}>経験値登録を試してみることができます。</p>
+          <p className={clsx("text-xs")}>*ログインしていない場合は登録したデータは保存されません。</p>
+        </div>
       </div>
 
-      <div className={clsx("my-6")}>
-        <p className={clsx("mb-4")}>さぁ、アカウント登録をして新しい自分の始まりを体験しましょう。</p>
-        <Link href="/register">
-          <Button variant="outlined">アカウント登録</Button>
-        </Link>
-      </div>
+      {data.datasets.length >=1 &&
+        <>
+          <div className={clsx("mt-4")}>
+            <StackedBarChart data={data} />
+          </div>
 
-      <InputModal addRecord={handleAddRecord} />
-
-      <div className={clsx("p-4")}>
-        <StackedBarChart data={data} />
-      </div>
-
-      <div className={clsx("p-4")}>
-        <h3>記録一覧</h3>
-        <ul>
-          {sortedRecords.map((record, index) => (
-            <li key={index}>
-              {new Date(record.date).getFullYear()} - {record.title}: {record.point}
-            </li>
-          ))}
-        </ul>
-      </div>
+          <div className={clsx("mt-4")}>
+            <h3>記録一覧</h3>
+            <ul>
+              {sortedRecords.map((record, index) => (
+                <li key={index}>
+                  {new Date(record.date).getFullYear()} - {record.title}: {record.point}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </>
+      }
     </main>
   );
 }
