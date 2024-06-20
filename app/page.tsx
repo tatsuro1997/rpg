@@ -7,23 +7,24 @@ import { Button } from '@mui/material';
 import clsx from 'clsx';
 import StackedBarChart from "../components/top/chart/stackedBarChart";
 import InputModal from "../components/ui/experience/inputModalSample";
-import { generateChartDataFromRecords } from '../utils/chartUtils';
+import { generateChartDataFromExperiences } from '../utils/chartUtils';
+import { BaseExperience } from '@/types/Experience'
 
 const App: React.FC = () => {
-  const [records, setRecords] = useState<{ date: string, name: string, value: string }[]>([]);
+  const [experiences, setExperiences] = useState<BaseExperience[]>([]);
   const [data, setData] = useState<ChartData<'bar'>>({ labels: [], datasets: [] });
 
 
-  const handleAddRecord = useCallback((date: string, name: string, value: string) => {
-    setRecords((prevRecords) => [...prevRecords, { date, name, value }]);
+  const handleAddRecord = useCallback((date: string, title: string, point: number) => {
+    setExperiences((prevRecords) => [...prevRecords, { date, title, point }]);
   }, []);
 
   useEffect(() => {
-    const newData = generateChartDataFromRecords(records);
+    const newData = generateChartDataFromExperiences(experiences);
     setData(newData);
-  }, [records]);
+  }, [experiences]);
 
-  const sortedRecords = [...records].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+  const sortedRecords = [...experiences].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
   return (
     <main className={clsx("min-h-screen p-24 text-center")}>
@@ -52,7 +53,7 @@ const App: React.FC = () => {
         <ul>
           {sortedRecords.map((record, index) => (
             <li key={index}>
-              {new Date(record.date).getFullYear()} - {record.name}: {record.value}
+              {new Date(record.date).getFullYear()} - {record.title}: {record.point}
             </li>
           ))}
         </ul>

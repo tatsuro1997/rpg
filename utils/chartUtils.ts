@@ -1,18 +1,19 @@
 import { ChartData } from 'chart.js';
+import { BaseExperience } from '@/types/Experience'
 
-export const generateChartDataFromRecords = (records: { date: string, name: string, value: string }[]): ChartData<'bar'> => {
+export const generateChartDataFromExperiences = (experiences: BaseExperience[]): ChartData<'bar'> => {
   const labelsSet: Set<string> = new Set();
   const datasets: { [key: string]: { label: string, data: { [year: string] :number }, backgroundColor: string, borderColor: string, borderWidth: number } } = {};
 
-  records.forEach(record => {
-    const year = new Date(record.date).getFullYear().toString();
-    const value = parseFloat(record.value);
+  experiences.forEach(experience => {
+    const year = new Date(experience.date).getFullYear().toString();
+    const point = experience.point;
 
     labelsSet.add(year);
 
-    if (!datasets[record.name]) {
-      datasets[record.name] = {
-        label: record.name,
+    if (!datasets[experience.title]) {
+      datasets[experience.title] = {
+        label: experience.title,
         data: {},
         backgroundColor: getRandomColor(),
         borderColor: getRandomColor(),
@@ -20,7 +21,7 @@ export const generateChartDataFromRecords = (records: { date: string, name: stri
       };
 
     }
-    datasets[record.name].data[year] = (datasets[record.name].data[year] || 0) + value;
+    datasets[experience.title].data[year] = (datasets[experience.title].data[year] || 0) + point;
   });
 
   const labels = Array.from(labelsSet).sort((a, b) => parseInt(a) - parseInt(b));

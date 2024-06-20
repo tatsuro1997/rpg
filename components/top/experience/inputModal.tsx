@@ -23,10 +23,10 @@ import { experience } from '@/actions/experience';
 import { useSession } from 'next-auth/react';
 
 interface InputModalProps {
-  addRecord: (userId: string, date: string, title: string, point: number) => void;
+  addRecord: (date: string, title: string, point: number) => void;
 }
 
-const InputModal: React.FC<InputModalProps> = () => {
+const InputModal: React.FC<InputModalProps> = ({ addRecord }) => {
   const [open, setOpen] = useState(false);
   const [error, setError] = useState<string | undefined>('');
   const [isPending, startTransition] = useTransition();
@@ -53,9 +53,9 @@ const InputModal: React.FC<InputModalProps> = () => {
 
   const onSubmit = (values: z.infer<typeof experienceSchema>) => {
     setError('');
+
     startTransition(async () => {
       const formattedDate = new Date(values.date).toISOString();
-
       const result = await experience({
         ...values,
         date: formattedDate,
@@ -66,7 +66,9 @@ const InputModal: React.FC<InputModalProps> = () => {
         return;
       }
 
+      addRecord(values.date, values.title, parseInt(values.point));
       toast.success(result.message);
+      handleClose();
     });
   };
 

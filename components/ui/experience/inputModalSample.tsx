@@ -5,12 +5,12 @@ import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField } 
 import clsx from 'clsx';
 
 interface InputModalProps {
-  addRecord: (date: string, name: string, value: string) => void;
+  addRecord: (date: string, title: string, point: number) => void;
 }
 
 const InputModal: React.FC<InputModalProps>  = ({ addRecord }) => {
   const [open, setOpen] = useState(false);
-  const [formData, setFormData] = useState({ date: '', name: '', value: '' });
+  const [formData, setFormData] = useState({ date: '', title: '', point: '' });
 
   const handleClickOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -22,7 +22,7 @@ const InputModal: React.FC<InputModalProps>  = ({ addRecord }) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    addRecord(formData.date, formData.name, formData.value);
+    addRecord(formData.date, formData.title, parseInt(formData.point));
     handleClose();
   };
 
@@ -54,20 +54,20 @@ const InputModal: React.FC<InputModalProps>  = ({ addRecord }) => {
             />
             <TextField
               margin="dense"
-              name="name"
+              name="title"
               label="Record Name"
               type="text"
               fullWidth
-              value={formData.name}
+              value={formData.title}
               onChange={handleChange}
             />
             <TextField
               margin="dense"
-              name="value"
+              name="point"
               label="Experience Value"
               type="number"
               fullWidth
-              value={formData.value}
+              value={formData.point}
               onChange={handleChange}
             />
             <DialogActions>

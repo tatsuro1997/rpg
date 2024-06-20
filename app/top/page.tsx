@@ -1,54 +1,42 @@
-"use client"
+import Top from '@/components/top/Top';
+import { db } from '@/lib/db';
+import { auth } from '@/auth';
+import { Experience } from '@/types/Experience'
 
-import { useState, useEffect, useCallback } from 'react'
-import { ChartData } from 'chart.js';
-import clsx from 'clsx';
-import StackedBarChart from "@/components/top/chart/stackedBarChart";
-import InputModal from "@/components/top/experience/inputModal";
-import { generateChartDataFromRecords } from '@/utils/chartUtils';
+const fetchData = async () => {
+  const session = await auth();
 
-const App: React.FC = () => {
-  const [records, setRecords] = useState<{ date: string, name: string, value: string }[]>([]);
-  const [data, setData] = useState<ChartData<'bar'>>({ labels: [], datasets: [] });
+  if (!session || !session.user || !session.user.id) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      },
+    };
+  }
 
-  const handleAddRecord = useCallback((date: string, name: string, value: string) => {
-    setRecords((prevRecords) => [...prevRecords, { date, name, value }]);
-  }, []);
+  const userId = parseInt(session.user.id);
+  const experiences = await db.experience.findMany({
+    where: { userId },
+    orderBy: { date: 'asc' },
+  });
 
-  useEffect(() => {
-    const newData = generateChartDataFromRecords(records);
-    setData(newData);
-  }, [records]);
+  const serializedExperiences = experiences.map(experience => ({
+    ...experience,
+    date: experience.date.toISOString(),
+  }));
 
-  const sortedRecords = [...records].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-
-  return (
-    <main className={clsx("min-h-screen p-24 text-center")}>
-      <div className={clsx("font-black text-6xl")}>
-        WELCOME TO RPG[TOP]
-      </div>
-      <div className={clsx("font-bold text-2xl")}>
-        ようこそ、RPGへ
-      </div>
-
-      <InputModal addRecord={handleAddRecord} />
-
-      <div className={clsx("p-4")}>
-        <StackedBarChart data={data} />
-      </div>
-
-      <div className={clsx("p-4")}>
-        <h3>記録一覧</h3>
-        <ul>
-          {sortedRecords.map((record, index) => (
-            <li key={index}>
-              {new Date(record.date).getFullYear()} - {record.name}: {record.value}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </main>
-  );
+  return serializedExperiences;
 }
 
-export default App;
+export default async function TopPage() {
+  const initialExperiences = await fetchData();
+
+  if ('redirect' in initialExperiences) {
+    return {
+      redirect: initialExperiences.redirect,
+    };
+  }
+
+  return <Top initialExperiences={initialExperiences as Experience[]} />;
+}

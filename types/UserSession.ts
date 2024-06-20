@@ -1,6 +1,6 @@
 export type UserSession = {
   expired: string;
-  userId: string;
+  userId: number;
   userName: string;
   email: string;
 };
