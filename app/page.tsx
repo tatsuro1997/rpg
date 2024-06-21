@@ -4,10 +4,10 @@ import { useState, useEffect, useCallback } from 'react'
 import { ChartData } from 'chart.js';
 import clsx from 'clsx';
 import StackedBarChart from "../components/top/chart/stackedBarChart";
-import InputModal from "../components/ui/experience/inputModalSample";
+import InputModal from "../components/main/experience/inputModalSample";
 import { generateChartDataFromExperiences } from '../utils/chartUtils';
 import { BaseExperience } from '@/types/Experience'
-import MainView from '@/components/MainView';
+import MainView from '@/components/main/MainView';
 
 const App: React.FC = () => {
   const [experiences, setExperiences] = useState<BaseExperience[]>([]);

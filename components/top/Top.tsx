@@ -7,7 +7,7 @@ import InputModal from "@/components/top/experience/inputModal";
 import { generateChartDataFromExperiences } from '@/utils/chartUtils';
 import { ChartData } from 'chart.js';
 import { BaseExperience, Experience } from '@/types/Experience'
-
+import TopMainView from './TopMainView';
 interface AppProps {
   initialExperiences: Experience[];
 }
@@ -28,30 +28,31 @@ const Top: React.FC<AppProps> = ({ initialExperiences }) => {
   const sortedExperiences = experiences.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
   return (
-    <main className={clsx("min-h-screen p-24 text-center")}>
-      <div className={clsx("font-black text-6xl")}>
-        WELCOME TO RPG[TOP]
-      </div>
-      <div className={clsx("font-bold text-2xl")}>
-        ようこそ、RPGへ
+    <main className={clsx("min-h-screen md:p-24 py-10 px-2 text-center")}>
+      <TopMainView />
+
+      <div className={clsx("mt-20")}>
+        <InputModal addRecord={handleAddExperience} />
       </div>
 
-      <InputModal addRecord={handleAddExperience} />
+      {data.datasets.length >= 1 &&
+        <>
+          <div className={clsx("p-4")}>
+            <StackedBarChart data={data} />
+          </div>
 
-      <div className={clsx("p-4")}>
-        <StackedBarChart data={data} />
-      </div>
-
-      <div className={clsx("p-4")}>
-        <h3>記録一覧</h3>
-        <ul>
-          {sortedExperiences.map((record, index) => (
-            <li key={index}>
-              {new Date(record.date).getFullYear()} - {record.title}: {record.point}
-            </li>
-          ))}
-        </ul>
-      </div>
+          <div className={clsx("p-4")}>
+            <h3>記録一覧</h3>
+            <ul>
+              {sortedExperiences.map((record, index) => (
+                <li key={index}>
+                  {new Date(record.date).getFullYear()} - {record.title}: {record.point}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </>
+      }
     </main>
   );
 };

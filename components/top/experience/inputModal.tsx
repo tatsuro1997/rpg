@@ -15,8 +15,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent } from '@mui/material';
+import { Button, Dialog, DialogContent } from '@mui/material';
 import { FormError } from '@/components/form-error';
 import { experienceSchema } from '@/schemas';
 import { experience } from '@/actions/experience';
@@ -77,6 +76,7 @@ const InputModal: React.FC<InputModalProps> = ({ addRecord }) => {
       <Button
         type='button'
         className={clsx("my-4")}
+        variant="outlined"
         onClick={handleClickOpen}
       >
         経験値登録

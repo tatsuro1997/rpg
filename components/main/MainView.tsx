@@ -72,7 +72,7 @@ const MainView = () => {
         <Link href="/register">
           <Button variant="outlined">アカウント登録</Button>
         </Link>
-        <p className={clsx("mt-4 floating-text md:text-base text-xs", { visible: textVisible })}>さぁ、アカウント登録をして<br className="sm"/>新しい自分の始まりを体験しましょう。</p>
+        <p className={clsx("mt-4 floating-text md:text-base text-xs", { visible: textVisible })}>さぁ、アカウント登録をして<br className="sm" />新しい自分の始まりを体験しましょう。</p>
       </div>
     </>
   )
