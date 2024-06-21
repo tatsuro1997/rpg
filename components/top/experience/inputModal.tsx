@@ -41,7 +41,7 @@ const InputModal: React.FC<InputModalProps> = ({ addRecord, existingRecord, onUp
     resolver: zodResolver(experienceSchema),
     defaultValues: {
       userId: session?.user?.id ?? '',
-      date: existingRecord?.date ?? '',
+      date: existingRecord?.date ? new Date(existingRecord.date).toISOString().slice(0, 10) : '',
       title: existingRecord?.title ?? '',
       point: existingRecord?.point.toString() ?? '',
     },
@@ -101,7 +101,7 @@ const InputModal: React.FC<InputModalProps> = ({ addRecord, existingRecord, onUp
         variant="outlined"
         onClick={handleClickOpen}
       >
-        {existingRecord ? '経験値編集' : '経験値登録'}
+        {existingRecord ? '編集' : '経験値登録'}
       </Button>
 
       <Dialog open={open} onClose={handleClose}>

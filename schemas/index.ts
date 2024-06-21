@@ -24,7 +24,7 @@ export const logInSchema = z.object({
 
 export const experienceSchema = z.object({
   userId: z.string(),
-  date: z.string().min(1, {
+  date: z.string().datetime().min(1, {
     message: '日付は必須です。',
   }),
   title: z.string().min(1, {
