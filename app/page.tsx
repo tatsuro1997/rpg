@@ -3,9 +3,10 @@
 import { useState, useEffect, useCallback } from 'react'
 import { ChartData } from 'chart.js';
 import clsx from 'clsx';
-import StackedBarChart from "../components/top/chart/stackedBarChart";
-import InputModal from "../components/main/experience/inputModalSample";
-import { generateChartDataFromExperiences } from '../utils/chartUtils';
+import StackedBarChart from "@/components/top/chart/stackedBarChart";
+import InputModal from "@/components/main/experience/inputModalSample";
+import ExperienceList from '@/components/experienceList';
+import { generateChartDataFromExperiences } from '@/utils/chartUtils';
 import { BaseExperience } from '@/types/Experience'
 import MainView from '@/components/main/MainView';
 
@@ -39,20 +40,11 @@ const App: React.FC = () => {
 
       {data.datasets.length >=1 &&
         <>
-          <div className={clsx("mt-4")}>
+          <div className={clsx("py-4")}>
             <StackedBarChart data={data} />
           </div>
 
-          <div className={clsx("mt-4")}>
-            <h3>記録一覧</h3>
-            <ul>
-              {sortedRecords.map((record, index) => (
-                <li key={index}>
-                  {new Date(record.date).getFullYear()} - {record.title}: {record.point}
-                </li>
-              ))}
-            </ul>
-          </div>
+          <ExperienceList sortedExperiences={sortedRecords} />
         </>
       }
     </main>

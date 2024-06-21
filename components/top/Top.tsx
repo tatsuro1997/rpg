@@ -4,10 +4,12 @@ import { useState, useEffect, useCallback } from 'react';
 import clsx from 'clsx';
 import StackedBarChart from "@/components/top/chart/stackedBarChart";
 import InputModal from "@/components/top/experience/inputModal";
+import ExperienceList from '@/components/experienceList';
+import TopMainView from '@/components/top/TopMainView';
 import { generateChartDataFromExperiences } from '@/utils/chartUtils';
 import { ChartData } from 'chart.js';
 import { BaseExperience, Experience } from '@/types/Experience'
-import TopMainView from './TopMainView';
+
 interface AppProps {
   initialExperiences: Experience[];
 }
@@ -37,20 +39,11 @@ const Top: React.FC<AppProps> = ({ initialExperiences }) => {
 
       {data.datasets.length >= 1 &&
         <>
-          <div className={clsx("p-4")}>
+          <div className={clsx("py-4")}>
             <StackedBarChart data={data} />
           </div>
 
-          <div className={clsx("p-4")}>
-            <h3>記録一覧</h3>
-            <ul>
-              {sortedExperiences.map((record, index) => (
-                <li key={index}>
-                  {new Date(record.date).getFullYear()} - {record.title}: {record.point}
-                </li>
-              ))}
-            </ul>
-          </div>
+          <ExperienceList sortedExperiences={sortedExperiences} />
         </>
       }
     </main>
