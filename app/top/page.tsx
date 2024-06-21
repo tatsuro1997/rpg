@@ -1,7 +1,12 @@
+import { Metadata } from 'next';
 import Top from '@/components/top/Top';
 import { db } from '@/lib/db';
 import { auth } from '@/auth';
 import { Experience } from '@/types/Experience'
+
+export const metadata: Metadata = {
+  title: '経験値登録',
+};
 
 const fetchData = async () => {
   const session = await auth();

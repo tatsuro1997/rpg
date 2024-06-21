@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import * as z from 'zod';
-import { Button } from '@/components/ui/button';
+import { Button } from '@mui/material';
 import {
   Form,
   FormControl,
@@ -92,7 +92,7 @@ export function RegisterForm() {
         />
         <FormError message={error} />
         <div className='flex justify-between items-center'>
-          <Button type='submit' disabled={isPending}>
+          <Button type='submit' disabled={isPending} variant="outlined">
             アカウントを作成
           </Button>
           <Link href="/login" className='text-blue-600 text-xs underline'>

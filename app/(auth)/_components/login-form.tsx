@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
-import { Button } from '@/components/ui/button';
+import { Button } from '@mui/material';
 import {
   Form,
   FormControl,
@@ -78,7 +78,7 @@ export function LogInForm() {
         />
         <FormError message={error} />
         <div className='flex justify-between items-center'>
-          <Button type='submit' disabled={isPending}>
+          <Button type='submit' disabled={isPending} variant="outlined">
             ログイン
           </Button>
           <Link href="/register" className='text-blue-600 text-xs underline'>
