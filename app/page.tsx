@@ -44,7 +44,10 @@ const App: React.FC = () => {
             <StackedBarChart data={data} />
           </div>
 
-          <ExperienceList sortedExperiences={sortedRecords} />
+          <ExperienceList
+            sortedExperiences={sortedRecords}
+            onUpdateExperience={() => { }} // 未ログインでは更新させないので空関数
+          />
         </>
       }
     </main>

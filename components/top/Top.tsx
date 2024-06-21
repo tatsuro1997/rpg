@@ -27,6 +27,14 @@ const Top: React.FC<AppProps> = ({ initialExperiences }) => {
     setData(newData);
   }, [experiences]);
 
+  const handleUpdateExperience = (updatedExperience: BaseExperience) => {
+    setExperiences((prevExperiences) =>
+      prevExperiences.map((experience) =>
+        experience.date === updatedExperience.date ? updatedExperience : experience
+      )
+    );
+  };
+
   const sortedExperiences = experiences.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
   return (
@@ -43,7 +51,7 @@ const Top: React.FC<AppProps> = ({ initialExperiences }) => {
             <StackedBarChart data={data} />
           </div>
 
-          <ExperienceList sortedExperiences={sortedExperiences} />
+          <ExperienceList sortedExperiences={sortedExperiences} onUpdateExperience={handleUpdateExperience} />
         </>
       }
     </main>

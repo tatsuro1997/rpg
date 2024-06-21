@@ -18,14 +18,17 @@ import { Input } from '@/components/ui/input';
 import { Button, Dialog, DialogContent } from '@mui/material';
 import { FormError } from '@/components/form-error';
 import { experienceSchema } from '@/schemas';
-import { experience } from '@/actions/experience';
+import { createExperience, updateExperience } from '@/actions/experience';
 import { useSession } from 'next-auth/react';
+import { BaseExperience, Experience } from '@/types/Experience';
 
 interface InputModalProps {
   addRecord: (date: string, title: string, point: number) => void;
+  existingRecord?: Experience;
+  onUpdateRecord?: (updatedRecord: BaseExperience) => void;
 }
 
-const InputModal: React.FC<InputModalProps> = ({ addRecord }) => {
+const InputModal: React.FC<InputModalProps> = ({ addRecord, existingRecord, onUpdateRecord }) => {
   const [open, setOpen] = useState(false);
   const [error, setError] = useState<string | undefined>('');
   const [isPending, startTransition] = useTransition();
@@ -38,9 +41,9 @@ const InputModal: React.FC<InputModalProps> = ({ addRecord }) => {
     resolver: zodResolver(experienceSchema),
     defaultValues: {
       userId: session?.user?.id ?? '',
-      date: '',
-      title: '',
-      point: '',
+      date: existingRecord?.date ?? '',
+      title: existingRecord?.title ?? '',
+      point: existingRecord?.point.toString() ?? '',
     },
   });
 
@@ -55,17 +58,36 @@ const InputModal: React.FC<InputModalProps> = ({ addRecord }) => {
 
     startTransition(async () => {
       const formattedDate = new Date(values.date).toISOString();
-      const result = await experience({
-        ...values,
-        date: formattedDate,
-      });
+      let result;
+
+      if (existingRecord) {
+        result = await updateExperience(existingRecord.id as number, {
+          ...values,
+          date: formattedDate,
+        });
+      } else {
+        result = await createExperience({
+          ...values,
+          date: formattedDate,
+        });
+      }
 
       if (!result.isSuccess) {
         setError(result.error.message);
         return;
       }
 
-      addRecord(values.date, values.title, parseInt(values.point));
+      if (existingRecord && onUpdateRecord) {
+        onUpdateRecord({
+          ...existingRecord,
+          date: values.date,
+          title: values.title,
+          point: parseInt(values.point),
+        });
+      } else {
+        addRecord(values.date, values.title, parseInt(values.point));
+      }
+
       toast.success(result.message);
       handleClose();
     });
@@ -79,7 +101,7 @@ const InputModal: React.FC<InputModalProps> = ({ addRecord }) => {
         variant="outlined"
         onClick={handleClickOpen}
       >
-        経験値登録
+        {existingRecord ? '経験値編集' : '経験値登録'}
       </Button>
 
       <Dialog open={open} onClose={handleClose}>
@@ -106,7 +128,7 @@ const InputModal: React.FC<InputModalProps> = ({ addRecord }) => {
                     <FormItem>
                       <FormLabel>日付</FormLabel>
                       <FormControl>
-                        <Input type='date' defaultValue='2020-01-01' { ...field } />
+                        <Input type='date' { ...field } />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -141,7 +163,7 @@ const InputModal: React.FC<InputModalProps> = ({ addRecord }) => {
                 <FormError message={error} />
                 <div className='flex justify-between'>
                   <Button type='submit' disabled={isPending}>
-                    経験値登録
+                    {existingRecord ? '更新' : '経験値登録'}
                   </Button>
                   <button type='button' onClick={handleClose} className='text-sm'>
                     閉じる

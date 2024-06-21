@@ -5,11 +5,11 @@ export interface BaseExperience {
 }
 
 export interface WithId {
-  id: number;
+  id?: number;
 }
 
 export interface WithUserId {
-  userId: number;
+  userId?: number;
 }
 
 // Generic type
