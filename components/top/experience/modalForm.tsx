@@ -22,13 +22,13 @@ import { createExperience, updateExperience } from '@/actions/experience';
 import { useSession } from 'next-auth/react';
 import { BaseExperience, Experience } from '@/types/Experience';
 
-interface InputModalProps {
+interface ModalFormProps {
   addRecord: (date: string, title: string, point: number) => void;
   existingRecord?: Experience;
   onUpdateRecord?: (updatedRecord: BaseExperience) => void;
 }
 
-const InputModal: React.FC<InputModalProps> = ({ addRecord, existingRecord, onUpdateRecord }) => {
+const ModalForm: React.FC<ModalFormProps> = ({ addRecord, existingRecord, onUpdateRecord }) => {
   const [open, setOpen] = useState(false);
   const [error, setError] = useState<string | undefined>('');
   const [isPending, startTransition] = useTransition();
@@ -178,4 +178,4 @@ const InputModal: React.FC<InputModalProps> = ({ addRecord, existingRecord, onUp
   )
 }
 
-export default InputModal;
+export default ModalForm;

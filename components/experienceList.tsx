@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { BaseExperience, Experience } from '@/types/Experience';
-import InputModal from '@/components/top/experience/inputModal';
+import ModalForm from '@/components/top/experience/modalForm';
 
 interface Props {
   sortedExperiences: BaseExperience[] | Experience[];
@@ -35,7 +35,7 @@ const ExperienceList = ({ sortedExperiences, onUpdateExperience }: Props) => {
                     <div className={clsx("px-2")}>
                       {record.title}: {record.point}
                     </div>
-                    <InputModal
+                    <ModalForm
                       addRecord={() => {}} // 編集モードでは使わないので空関数
                       existingRecord={record}
                       onUpdateRecord={handleUpdateRecord}

@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import clsx from 'clsx';
 import StackedBarChart from "@/components/top/chart/stackedBarChart";
-import InputModal from "@/components/top/experience/inputModal";
+import ModalForm from "@/components/top/experience/modalForm";
 import ExperienceList from '@/components/experienceList';
 import TopMainView from '@/components/top/TopMainView';
 import { generateChartDataFromExperiences } from '@/utils/chartUtils';
@@ -42,7 +42,7 @@ const Top: React.FC<AppProps> = ({ initialExperiences }) => {
       <TopMainView />
 
       <div className={clsx("mt-20")}>
-        <InputModal addRecord={handleAddExperience} />
+        <ModalForm addRecord={handleAddExperience} />
       </div>
 
       {data.datasets.length >= 1 &&
