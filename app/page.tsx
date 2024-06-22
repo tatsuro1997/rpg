@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from 'react'
 import { ChartData } from 'chart.js';
 import clsx from 'clsx';
 import StackedBarChart from "@/components/top/chart/stackedBarChart";
-import InputModal from "@/components/main/experience/inputModalSample";
+import ModalFormSample from "@/components/main/experience/ModalFormSample";
 import ExperienceList from '@/components/experienceList';
 import { generateChartDataFromExperiences } from '@/utils/chartUtils';
 import { BaseExperience } from '@/types/Experience'
@@ -31,7 +31,7 @@ const App: React.FC = () => {
       <MainView />
 
       <div className={clsx("mt-20")}>
-        <InputModal addRecord={handleAddRecord} />
+        <ModalFormSample addRecord={handleAddRecord} />
         <div className={clsx("mt-2")}>
           <p className={clsx("text-sm")}>経験値登録を試してみることができます。</p>
           <p className={clsx("text-xs")}>*ログインしていない場合は登録したデータは保存されません。</p>

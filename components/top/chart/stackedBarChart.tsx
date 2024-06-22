@@ -30,7 +30,7 @@ export const options: ChartOptions<'bar'> = {
       display: true,
     },
     legend: {
-      position: 'top',
+      display: false,
     },
     tooltip: {
       enabled: true,
@@ -39,6 +39,10 @@ export const options: ChartOptions<'bar'> = {
       backgroundColor: 'rgba(0,0,0,0.8)',
       borderColor: 'rgba(0,0,0,1)',
       borderWidth: 1,
+      filter: function (tooltipItem) {
+        // Show only the hovered item in the tooltip
+        return tooltipItem.raw !== 0;
+      },
       callbacks: {
         label: function(context) {
           let label = context.dataset.label || '';

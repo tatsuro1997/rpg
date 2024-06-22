@@ -18,11 +18,11 @@ import { Button } from '@mui/material';
 import { Dialog, DialogContent } from '@mui/material';
 import { experienceSchema } from '@/schemas';
 
-interface InputModalProps {
+interface ModalFormSampleProps {
   addRecord: (date: string, title: string, point: number) => void;
 }
 
-const InputModal: React.FC<InputModalProps>  = ({ addRecord }) => {
+const ModalFormSample: React.FC<ModalFormSampleProps>  = ({ addRecord }) => {
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => setOpen(true);
@@ -109,7 +109,7 @@ const InputModal: React.FC<InputModalProps>  = ({ addRecord }) => {
                   )}
                 />
                 <div className='flex justify-between'>
-                  <button type='button' onClick={handleClose} className='text-sm'>
+                  <button type='button' onClick={handleClose} className='text-xs'>
                     閉じる
                   </button>
                   <Button type='submit'>
@@ -125,4 +125,4 @@ const InputModal: React.FC<InputModalProps>  = ({ addRecord }) => {
   )
 }
 
-export default InputModal;
+export default ModalFormSample;

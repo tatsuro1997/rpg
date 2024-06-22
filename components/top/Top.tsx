@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import clsx from 'clsx';
 import StackedBarChart from "@/components/top/chart/stackedBarChart";
-import ModalForm from "@/components/top/experience/modalForm";
+import ModalForm from "@/components/top/experience/ModalForm";
 import ExperienceList from '@/components/experienceList';
 import TopMainView from '@/components/top/TopMainView';
 import { generateChartDataFromExperiences } from '@/utils/chartUtils';
@@ -47,8 +47,10 @@ const Top: React.FC<AppProps> = ({ initialExperiences }) => {
 
       {data.datasets.length >= 1 &&
         <>
-          <div className={clsx("py-4")}>
-            <StackedBarChart data={data} />
+          <div className={clsx("py-4 mb-10 block overflow-x-scroll")}>
+            <div className="min-w-[900px]">
+              <StackedBarChart data={data} />
+            </div>
           </div>
 
           <ExperienceList sortedExperiences={sortedExperiences} onUpdateExperience={handleUpdateExperience} />

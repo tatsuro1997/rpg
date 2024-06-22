@@ -162,12 +162,12 @@ const ModalForm: React.FC<ModalFormProps> = ({ addRecord, existingRecord, onUpda
                 />
                 <FormError message={error} />
                 <div className='flex justify-between'>
+                  <button type='button' onClick={handleClose} className='text-xs'>
+                    閉じる
+                  </button>
                   <Button type='submit' disabled={isPending}>
                     {existingRecord ? '更新' : '経験値登録'}
                   </Button>
-                  <button type='button' onClick={handleClose} className='text-sm'>
-                    閉じる
-                  </button>
                 </div>
               </form>
             </Form>

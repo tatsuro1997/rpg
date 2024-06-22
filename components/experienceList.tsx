@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { BaseExperience, Experience } from '@/types/Experience';
-import ModalForm from '@/components/top/experience/modalForm';
+import ModalForm from '@/components/top/experience/ModalForm';
 
 interface Props {
   sortedExperiences: BaseExperience[] | Experience[];
