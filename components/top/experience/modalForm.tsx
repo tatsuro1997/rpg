@@ -97,7 +97,7 @@ const ModalForm: React.FC<ModalFormProps> = ({ addRecord, existingRecord, onUpda
     <>
       <Button
         type='button'
-        className={clsx("my-4")}
+        className={clsx("md:my-4 my-2")}
         variant="outlined"
         onClick={handleClickOpen}
       >
