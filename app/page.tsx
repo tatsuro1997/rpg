@@ -3,9 +3,9 @@
 import { useState, useEffect, useCallback } from 'react'
 import { ChartData } from 'chart.js';
 import clsx from 'clsx';
-import StackedBarChart from "@/components/top/chart/stackedBarChart";
+import StackedBarChart from "@/components/top/chart/StackedBarChart";
 import ModalFormSample from "@/components/main/experience/ModalFormSample";
-import ExperienceList from '@/components/experienceList';
+import ExperienceList from '@/components/ExperienceList';
 import { generateChartDataFromExperiences } from '@/utils/chartUtils';
 import { BaseExperience } from '@/types/Experience'
 import MainView from '@/components/main/MainView';

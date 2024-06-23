@@ -2,12 +2,12 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import clsx from 'clsx';
-import StackedBarChart from "@/components/top/chart/stackedBarChart";
+import { ChartData } from 'chart.js';
+import StackedBarChart from "@/components/top/chart/StackedBarChart";
 import ModalForm from "@/components/top/experience/ModalForm";
-import ExperienceList from '@/components/experienceList';
+import ExperienceList from '@/components/ExperienceList';
 import TopMainView from '@/components/top/TopMainView';
 import { generateChartDataFromExperiences } from '@/utils/chartUtils';
-import { ChartData } from 'chart.js';
 import { BaseExperience, Experience } from '@/types/Experience'
 
 interface AppProps {
@@ -29,9 +29,7 @@ const Top: React.FC<AppProps> = ({ initialExperiences }) => {
 
   const handleUpdateExperience = (updatedExperience: BaseExperience) => {
     setExperiences((prevExperiences) =>
-      prevExperiences.map((experience) =>
-        experience.date === updatedExperience.date ? updatedExperience : experience
-      )
+      prevExperiences.map(() => updatedExperience)
     );
   };
 
