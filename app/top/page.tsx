@@ -8,19 +8,17 @@ export const metadata: Metadata = {
   title: '経験値登録',
 };
 
-const fetchData = async () => {
+const fetchUserId = async (): Promise<string> => {
   const session = await auth();
 
   if (!session || !session.user || !session.user.id) {
-    return {
-      redirect: {
-        destination: '/login',
-        permanent: false,
-      },
-    };
+    throw new Error('User is not authenticated');
   }
 
-  const userId = parseInt(session.user.id);
+  return session.user.id;
+}
+
+const fetchExperiences = async (userId: number) => {
   const experiences = await db.experience.findMany({
     where: { userId },
     orderBy: { date: 'asc' },
@@ -35,13 +33,9 @@ const fetchData = async () => {
 }
 
 export default async function TopPage() {
-  const initialExperiences = await fetchData();
+  const userId = await fetchUserId();
+  const userIdInt = parseInt(userId);
+  const initialExperiences = await fetchExperiences(userIdInt);
 
-  if ('redirect' in initialExperiences) {
-    return {
-      redirect: initialExperiences.redirect,
-    };
-  }
-
-  return <Top initialExperiences={initialExperiences as Experience[]} />;
+  return <Top initialExperiences={initialExperiences as Experience[]} userId={userId} />;
 }

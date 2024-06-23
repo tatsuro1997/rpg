@@ -12,9 +12,10 @@ import { Experience } from '@/types/Experience'
 
 interface AppProps {
   initialExperiences: Experience[];
+  userId?: string;
 }
 
-const Top: React.FC<AppProps> = ({ initialExperiences }) => {
+const Top: React.FC<AppProps> = ({ initialExperiences, userId }) => {
   const [experiences, setExperiences] = useState<Experience[]>(initialExperiences);
   const [data, setData] = useState<ChartData<'bar'>>({ labels: [], datasets: [] });
 
@@ -42,7 +43,7 @@ const Top: React.FC<AppProps> = ({ initialExperiences }) => {
       <TopMainView />
 
       <div className={clsx("mt-20")}>
-        <ModalForm addRecord={handleAddExperience} />
+        <ModalForm addRecord={handleAddExperience} userId={userId} />
       </div>
 
       {data.datasets.length >= 1 &&

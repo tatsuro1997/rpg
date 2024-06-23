@@ -21,18 +21,20 @@ import { experienceSchema } from '@/schemas';
 import { createExperience, updateExperience } from '@/actions/experience';
 import { useSession } from 'next-auth/react';
 import { BaseExperience, Experience } from '@/types/Experience';
+import { auth } from '@/auth';
 
 interface ModalFormProps {
   addRecord: (date: string, title: string, point: number) => void;
   existingRecord?: Experience;
   onUpdateRecord?: (updatedRecord: BaseExperience) => void;
+  userId?: string;
 }
 
-const ModalForm: React.FC<ModalFormProps> = ({ addRecord, existingRecord, onUpdateRecord }) => {
+const ModalForm: React.FC<ModalFormProps> = ({ addRecord, existingRecord, onUpdateRecord, userId }) => {
   const [open, setOpen] = useState(false);
   const [error, setError] = useState<string | undefined>('');
   const [isPending, startTransition] = useTransition();
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
 
   const handleClickOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -40,7 +42,7 @@ const ModalForm: React.FC<ModalFormProps> = ({ addRecord, existingRecord, onUpda
   const form = useForm<z.infer<typeof experienceSchema>>({
     resolver: zodResolver(experienceSchema),
     defaultValues: {
-      userId: session?.user?.id ?? '',
+      userId: userId?? '',
       date: existingRecord?.date ? new Date(existingRecord.date).toISOString().slice(0, 10) : '',
       title: existingRecord?.title ?? '',
       point: existingRecord?.point.toString() ?? '',
@@ -48,10 +50,10 @@ const ModalForm: React.FC<ModalFormProps> = ({ addRecord, existingRecord, onUpda
   });
 
   useEffect(() => {
-    if (session?.user?.id) {
-      form.setValue('userId', session.user.id);
+    if (userId) {
+      form.setValue('userId', userId);
     }
-  }, [session, form]);
+  }, [userId, form]);
 
   const onSubmit = (values: z.infer<typeof experienceSchema>) => {
     setError('');
