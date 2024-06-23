@@ -8,14 +8,14 @@ import ModalForm from "@/components/top/experience/ModalForm";
 import ExperienceList from '@/components/ExperienceList';
 import TopMainView from '@/components/top/TopMainView';
 import { generateChartDataFromExperiences } from '@/utils/chartUtils';
-import { BaseExperience, Experience } from '@/types/Experience'
+import { Experience } from '@/types/Experience'
 
 interface AppProps {
   initialExperiences: Experience[];
 }
 
 const Top: React.FC<AppProps> = ({ initialExperiences }) => {
-  const [experiences, setExperiences] = useState<BaseExperience[]>(initialExperiences);
+  const [experiences, setExperiences] = useState<Experience[]>(initialExperiences);
   const [data, setData] = useState<ChartData<'bar'>>({ labels: [], datasets: [] });
 
   const handleAddExperience = useCallback((date: string, title: string, point: number) => {
@@ -27,9 +27,11 @@ const Top: React.FC<AppProps> = ({ initialExperiences }) => {
     setData(newData);
   }, [experiences]);
 
-  const handleUpdateExperience = (updatedExperience: BaseExperience) => {
+  const handleUpdateExperience = (updatedExperience: Experience) => {
     setExperiences((prevExperiences) =>
-      prevExperiences.map(() => updatedExperience)
+      prevExperiences.map((experience) =>
+        experience.id === updatedExperience.id ? updatedExperience : experience
+      )
     );
   };
 
